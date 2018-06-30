@@ -6,9 +6,7 @@ is_new_years_day_test_() ->
     [
         ?_assertEqual(true, holidays:is_new_years_day(us, get_date(2018,1,1))),
         ?_assertEqual(false, holidays:is_new_years_day(us, get_date(2018,1,2))),
-        ?_assertEqual(false, holidays:is_new_years_day(us, get_date(2018,2,1))),
-        ?_assertEqual(true, holidays:is_new_years_day(us, get_date(2018,2,16))),
-        ?_assertEqual(true, holidays:is_new_years_day(us, get_date(2018,2,5)))
+        ?_assertEqual(false, holidays:is_new_years_day(us, get_date(2018,2,1)))
     ].
 
 is_martin_luther_king_day_test_() ->
@@ -43,6 +41,7 @@ is_good_friday_test_() ->
 
 is_easter_test_() ->
     [
+        ?_assertEqual(true, holidays:is_easter(any, get_date(1981,4,19))),
         ?_assertEqual(true, holidays:is_easter(any, get_date(2020,4,12))),
         ?_assertEqual(false, holidays:is_easter(any, get_date(2020,5,12))),
         ?_assertEqual(true, holidays:is_easter(any, get_date(2023,4,9))),
