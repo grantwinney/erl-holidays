@@ -6,7 +6,9 @@ is_new_years_day_test_() ->
     [
         ?_assertEqual(true, holidays:is_new_years_day(us, get_date(2018,1,1))),
         ?_assertEqual(false, holidays:is_new_years_day(us, get_date(2018,1,2))),
-        ?_assertEqual(false, holidays:is_new_years_day(us, get_date(2018,2,1)))
+        ?_assertEqual(false, holidays:is_new_years_day(us, get_date(2018,2,1))),
+        ?_assertEqual(true, holidays:is_new_years_day(us, get_date(2018,2,16))),
+        ?_assertEqual(true, holidays:is_new_years_day(us, get_date(2018,2,5)))
     ].
 
 is_martin_luther_king_day_test_() ->
@@ -147,19 +149,6 @@ get_easter_test_() ->
         ?_assertEqual({2030,4,21}, holidays:get_easter(catholic, 2030))
     ].
 
-is_nth_occurrence_test_() ->
-    [
-        ?_assertEqual(true, holidays:is_nth_occurrence(1,1)),
-        ?_assertEqual(true, holidays:is_nth_occurrence(4,1)),
-        ?_assertEqual(true, holidays:is_nth_occurrence(7,1)),
-        ?_assertEqual(true, holidays:is_nth_occurrence(8,2)),
-        ?_assertEqual(true, holidays:is_nth_occurrence(21,3)),
-        ?_assertEqual(true, holidays:is_nth_occurrence(22,4)),
-        ?_assertEqual(true, holidays:is_nth_occurrence(30,5)),
-        ?_assertEqual(false, holidays:is_nth_occurrence(1,5)),
-        ?_assertEqual(false, holidays:is_nth_occurrence(29,1))
-    ].
-
 is_business_holiday_test_() ->
     [
         ?_assertEqual(true, holidays:is_holiday(us, get_date(2019,4,21), [fun holidays:is_easter/2])),
@@ -167,6 +156,11 @@ is_business_holiday_test_() ->
         ?_assertEqual(false, holidays:is_holiday(us, get_date(2019,12,26), [fun holidays:is_easter/2, fun holidays:is_christmas/2])),
         ?_assertEqual(false, holidays:is_holiday(us, get_date(2019,12,25), [fun holidays:is_easter/2, fun holidays:is_christmas_eve/2]))
     ].
+
+
+%% ========================
+%% Test Helper Functions
+%% ========================
 
 get_date(Y,M,D) ->
     {{Y,M,D},{0,0,0}}.

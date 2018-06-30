@@ -28,12 +28,15 @@
 
 -type date_timestamp() :: {{pos_integer(), pos_integer(), pos_integer()}, {non_neg_integer(), non_neg_integer(), non_neg_integer()}}.
 
+
 %% ======================
 %% External Functions
 %% ======================
 
 -spec is_new_years_day(atom(), date_timestamp()) -> boolean().
 is_new_years_day(us, {{_,M,D},_}) ->
+    M =:= 1 andalso D =:= 1;
+is_new_years_day(cn, {{_,M,D},_}) ->
     M =:= 1 andalso D =:= 1.
 
 -spec is_martin_luther_king_day(atom(), date_timestamp()) -> boolean().
@@ -54,14 +57,10 @@ is_good_friday(_, {{Y,M,D},_}) ->
     {GFYear, GFMonth, GFDay} = calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(get_easter(catholic, Y)) - 2),
     GFYear =:= Y andalso GFMonth =:= M andalso GFDay =:= D.
 
-% https://www.assa.org.au/edm#Calculator
 -spec is_easter(atom(), date_timestamp()) -> boolean().
 is_easter(_, {{Y,M,D},_}) ->
     {EYear, EMonth, EDay} = get_easter(catholic, Y),
     EYear =:= Y andalso EMonth =:= M andalso EDay =:= D.
-
-% is_orthodox_easter(_, {{Y,M,D},_}) ->
-%     ?.
 
 -spec is_armed_forced_day(atom(), date_timestamp()) -> boolean().
 is_armed_forced_day(us, {{Y,M,D},_}) ->
@@ -72,18 +71,15 @@ is_armed_forced_day(us, {{Y,M,D},_}) ->
 is_independence_day(us, {{_,M,D},_}) ->
     M =:= 7 andalso D =:= 4.
 
-% https://www.timeanddate.com/holidays/us/washington-birthday
 -spec is_presidents_day(atom(), date_timestamp()) -> boolean().
 is_presidents_day(us, {{Y,M,D},_}) ->
     IsMonday = calendar:day_of_the_week(Y,M,D) =:= 1,
     M =:= 2 andalso IsMonday andalso is_nth_occurrence(D,3).
 
-% https://www.timeanddate.com/holidays/us/veterans-day
 -spec is_veterans_day(atom(), date_timestamp()) -> boolean().
 is_veterans_day(us, {{_,M,D},_}) ->
     M =:= 11 andalso D =:= 11.
 
-% https://www.timeanddate.com/holidays/us/memorial-day
 -spec is_memorial_day(atom(), date_timestamp()) -> boolean().
 is_memorial_day(us, {{_,M,D},_}) ->
     IsLastMonday = ((31 - D) div 7) =:= 0,
@@ -119,7 +115,6 @@ is_christmas(_, {{_,M,D},_}) ->
 is_new_years_eve(us, {{_,M,D},_}) ->
     M =:= 12 andalso D =:= 31.
 
-% https://stackoverflow.com/a/2510411/301857
 -spec get_easter(atom(), pos_integer()) -> {pos_integer(), pos_integer(), pos_integer()}.
 get_easter(catholic, Year) ->
     G = trunc(math:fmod(Year,19)),
@@ -143,13 +138,6 @@ is_holiday(CountryCode, Date, Holidays) ->
 %% Internal Functions
 %% ======================
 
-% -spec get_week(atom(), pos_integer(), pos_integer(), pos_integer()) -> pos_integer().
-% get_week(us, Y, M, D) ->
-%     FirstDayOfWeek = calendar:day_of_the_week(Y,M,1),
-%     ((D + (FirstDayOfWeek - 1) - 1) div 7) + 1.
-
 -spec is_nth_occurrence(pos_integer(), pos_integer()) -> boolean().
 is_nth_occurrence(Day, NthOccurrence) ->
     ((Day - 1) div 7) =:= (NthOccurrence - 1).
-
-% https://www.worldatlas.com/aatlas/ctycodes.htm
