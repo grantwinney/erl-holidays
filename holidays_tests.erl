@@ -39,19 +39,34 @@ is_good_friday_test_() ->
         ?_assertEqual(false, holidays:is_good_friday(any, get_date(2030,12,25)))
     ].
 
-is_easter_test_() ->
+is_catholic_easter_test_() ->
     [
-        ?_assertEqual(true, holidays:is_easter(any, get_date(1981,4,19))),
-        ?_assertEqual(true, holidays:is_easter(any, get_date(2020,4,12))),
-        ?_assertEqual(false, holidays:is_easter(any, get_date(2020,5,12))),
-        ?_assertEqual(true, holidays:is_easter(any, get_date(2023,4,9))),
-        ?_assertEqual(false, holidays:is_easter(any, get_date(2023,4,12))),
-        ?_assertEqual(true, holidays:is_easter(any, get_date(2024,3,31))),
-        ?_assertEqual(false, holidays:is_easter(any, get_date(2024,6,31))),
-        ?_assertEqual(true, holidays:is_easter(any, get_date(2026,4,5))),
-        ?_assertEqual(false, holidays:is_easter(any, get_date(2026,12,5))),
-        ?_assertEqual(true, holidays:is_easter(any, get_date(2029,4,1))),
-        ?_assertEqual(false, holidays:is_easter(any, get_date(2029,10,1)))
+        ?_assertEqual(true, holidays:is_easter(catholic, get_date(1981,4,19))),
+        ?_assertEqual(true, holidays:is_easter(catholic, get_date(2020,4,12))),
+        ?_assertEqual(false, holidays:is_easter(catholic, get_date(2020,5,12))),
+        ?_assertEqual(true, holidays:is_easter(catholic, get_date(2023,4,9))),
+        ?_assertEqual(false, holidays:is_easter(catholic, get_date(2023,4,12))),
+        ?_assertEqual(true, holidays:is_easter(catholic, get_date(2024,3,31))),
+        ?_assertEqual(false, holidays:is_easter(catholic, get_date(2024,6,31))),
+        ?_assertEqual(true, holidays:is_easter(catholic, get_date(2026,4,5))),
+        ?_assertEqual(false, holidays:is_easter(catholic, get_date(2026,12,5))),
+        ?_assertEqual(true, holidays:is_easter(catholic, get_date(2029,4,1))),
+        ?_assertEqual(false, holidays:is_easter(catholic, get_date(2029,10,1)))
+    ].
+
+is_orthodox_easter_test_() ->
+    [
+        ?_assertEqual(true, holidays:is_easter(orthodox, get_date(1981,4,19))),
+        ?_assertEqual(true, holidays:is_easter(orthodox, get_date(2020,4,12))),
+        ?_assertEqual(false, holidays:is_easter(orthodox, get_date(2020,5,12))),
+        ?_assertEqual(true, holidays:is_easter(orthodox, get_date(2023,4,9))),
+        ?_assertEqual(false, holidays:is_easter(orthodox, get_date(2023,4,12))),
+        ?_assertEqual(true, holidays:is_easter(orthodox, get_date(2024,3,31))),
+        ?_assertEqual(false, holidays:is_easter(orthodox, get_date(2024,6,31))),
+        ?_assertEqual(true, holidays:is_easter(orthodox, get_date(2026,4,5))),
+        ?_assertEqual(false, holidays:is_easter(orthodox, get_date(2026,12,5))),
+        ?_assertEqual(true, holidays:is_easter(orthodox, get_date(2029,4,1))),
+        ?_assertEqual(false, holidays:is_easter(orthodox, get_date(2029,10,1)))
     ].
 
 is_armed_forced_day_test_() ->

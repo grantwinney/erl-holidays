@@ -58,8 +58,8 @@ is_good_friday(_, {{Y,M,D},_}) ->
     GFYear =:= Y andalso GFMonth =:= M andalso GFDay =:= D.
 
 -spec is_easter(atom(), date_timestamp()) -> boolean().
-is_easter(_, {{Y,M,D},_}) ->
-    {EYear, EMonth, EDay} = get_easter(catholic, Y),
+is_easter(Rite, {{Y,M,D},_}) ->
+    {EYear, EMonth, EDay} = get_easter(Rite, Y),
     EYear =:= Y andalso EMonth =:= M andalso EDay =:= D.
 
 -spec is_armed_forced_day(atom(), date_timestamp()) -> boolean().
@@ -127,7 +127,17 @@ get_easter(catholic, Year) ->
             {Year, 4, Day - 31};
         _ ->
             {Year, 3, Day}
-    end.
+    end;
+
+get_easter(orthodox, Year) ->
+    A = trunc(math:fmod(Year,4)),
+    B = trunc(math:fmod(Year,7)),
+    C = trunc(math:fmod(Year,19)),
+    D = trunc(math:fmod((19*C)+15,30)),
+    E = trunc(math:fmod((2*A)+(4*B)-D+34,7)),
+    Month = (D+E+114) div 31,
+    Day = trunc(math:fmod((D+E+114),31))+1,
+
 
 -spec is_holiday(atom(), date_timestamp(), [fun()]) -> boolean().
 is_holiday(CountryCode, Date, Holidays) ->
