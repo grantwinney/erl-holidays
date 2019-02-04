@@ -9,3 +9,13 @@ To use it, just pass in the [2-letter country code](https://www.worldatlas.com/a
 There's a separate module with dozens of tests to validate each holiday, so hopefully everything is okay.
 
 If you see anything that looks wrong, or have new holidays to add, either [open a new issue](https://github.com/grantwinney/erl-holidays/issues/new) with as many details as possible or [create a new PR](https://github.com/grantwinney/erl-holidays/pulls).
+
+## Running EUnit Tests
+
+I tried to make sure there were lots of [EUnit tests](erlang.org/doc/apps/eunit/chapter.html#running-eunit) validating that the calculations were correct, especially for the more complicated ones like Easter. To run the tests, clone the project locally and run them normally:
+
+```erlang
+c(holidays).
+c(holidays-tests).
+eunit_test(holidays_tests).
+```
