@@ -34,8 +34,9 @@ If your country code isn't in the `holidays` module, then add a [guard clause](h
 ```erlang
 is_easter(Country, Date) when Country =:= us; Country =:= ca ->
     is_easter(catholic, Date);
-is_easter(Country, Date) when Country =:= ??   % doesn't exist; add this function if a country defaults to orthodox
+is_easter(Country, Date) when Country =:= bg; Country =:= cy; Country =:= gr; Country =:= lb;
+                              Country =:= mk; Country =:= ro; Country =:= ru; Country =:= ua>
     is_easter(orthodox, Date);
-is_easter(_, Date) ->                          % catch-all
+is_easter(_, Date) ->            % catch-all
     is_easter(catholic, Date).
 ```
