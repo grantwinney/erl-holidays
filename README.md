@@ -12,10 +12,30 @@ If you see anything that looks wrong, or have new holidays to add, either [open 
 
 ## Running EUnit Tests
 
-I tried to make sure there were lots of [EUnit tests](erlang.org/doc/apps/eunit/chapter.html#running-eunit) validating that the calculations were correct, especially for the more complicated ones like Easter. To run the tests, clone the project locally and run them normally:
+There were plenty of [EUnit tests](erlang.org/doc/apps/eunit/chapter.html#running-eunit) to validate that the calculations are correct, especially for more complex ones like Easter. Clone the project locally and run the tests normally:
 
 ```erlang
 c(holidays).
 c(holidays-tests).
 eunit_test(holidays_tests).
+```
+
+## Implementation Notes
+
+If you call `holidays:is_holiday()` and pass in a country code, the path `is_easter` travels depends on which rite (if any) the country observes.
+
+```erlang
+is_business_holiday_test() ->
+    ?assertEqual(true, holidays:is_holiday(us, get_date(2029,4,1), [fun holidays:is_easter/2])),
+```
+
+If your country code isn't in the `holidays` module, then add a [guard clause](http://erlang.org/doc/reference_manual/expressions.html#guard-sequences) as appropriate.
+
+```erlang
+is_easter(Country, Date) when Country =:= us; Country =:= ca ->
+    is_easter(catholic, Date);
+is_easter(Country, Date) when Country =:= ??   % doesn't exist; add this function if a country defaults to orthodox
+    is_easter(orthodox, Date);
+is_easter(_, Date) ->                          % catch-all
+    is_easter(catholic, Date).
 ```
