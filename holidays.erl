@@ -63,6 +63,9 @@ is_easter(Rite, {{Y,M,D},_}) when Rite =:= catholic; Rite =:= orthodox ->
     EYear =:= Y andalso EMonth =:= M andalso EDay =:= D;
 is_easter(Country, Date) when Country =:= us; Country =:= ca ->
     is_easter(catholic, Date);
+is_easter(Country, Date) when Country =:= bg; Country =:= cy; Country =:= gr; Country =:= lb;
+                              Country =:= mk; Country =:= ro; Country =:= ru; Country =:= ua>
+    is_easter(orthodox, Date);
 is_easter(_, Date) ->
     is_easter(catholic, Date).
 
