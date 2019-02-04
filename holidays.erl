@@ -61,7 +61,7 @@ is_good_friday(_, {{Y,M,D},_}) ->
 is_easter(Rite, {{Y,M,D},_}) when Rite =:= catholic; Rite =:= orthodox ->
     {EYear, EMonth, EDay} = get_easter(Rite, Y),
     EYear =:= Y andalso EMonth =:= M andalso EDay =:= D;
-is_easter(Country, Date) when Country =:= us ->
+is_easter(Country, Date) when Country =:= us; Country =:= ca ->
     is_easter(catholic, Date);
 is_easter(_, Date) ->
     is_easter(catholic, Date).
