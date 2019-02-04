@@ -58,6 +58,8 @@ is_good_friday(_, {{Y,M,D},_}) ->
     GFYear =:= Y andalso GFMonth =:= M andalso GFDay =:= D.
 
 -spec is_easter(atom(), date_timestamp()) -> boolean().
+is_easter(us, Date) ->
+    is_easter(catholic, Date);
 is_easter(Rite, {{Y,M,D},_}) ->
     {EYear, EMonth, EDay} = get_easter(Rite, Y),
     EYear =:= Y andalso EMonth =:= M andalso EDay =:= D.
@@ -137,7 +139,7 @@ get_easter(orthodox, Year) ->
     E = trunc(math:fmod((2*A)+(4*B)-D+34,7)),
     Month = (D+E+114) div 31,
     Day = trunc(math:fmod((D+E+114),31))+1,
-
+    calendar:gregorian_days_to_date(calendar:date_to_gregorian_days({Year, Month, Day})+13).
 
 -spec is_holiday(atom(), date_timestamp(), [fun()]) -> boolean().
 is_holiday(CountryCode, Date, Holidays) ->
